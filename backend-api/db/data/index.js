@@ -1,0 +1,1 @@
+exports.tasksData = require("./tasks.json");

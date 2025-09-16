@@ -5,7 +5,6 @@ const format = require("pg-format");
 exports.seed = function() {
     return db.query("DROP TABLE IF EXISTS tasks;")
         .then(()=> {
-            console.log("dropped")
             return db.query(`
                 CREATE TABLE tasks (
                     task_id SERIAL PRIMARY KEY,
@@ -15,10 +14,6 @@ exports.seed = function() {
                     due_date DATE NOT NULL 
                     ); `)
         }).then(()=> {
-            console.log("created")
-            console.log(format("INSERT INTO tasks(title, description, status, due_date) VALUES %L",
-                tasksData.map((JSON) => Object.values(JSON))
-            ))
             return db.query(format("INSERT INTO tasks(title, description, status, due_date) VALUES %L",
                 tasksData.map((JSON) => Object.values(JSON))
             ));
