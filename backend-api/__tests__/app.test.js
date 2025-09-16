@@ -40,6 +40,41 @@ describe("app", () => {
                     })
                 })
             })
+            test("task object data should only be of a certain data type", () => {
+                return request(app)
+                .get("/api/tasks")
+                .then(({ body: { tasks } }) => {
+                    tasks.forEach((task) => {
+                       expect(typeof task.task_id).toBe("number");
+                       expect(typeof task.title).toBe("string");
+                       expect(typeof task.description).toBe("string");
+                       expect(typeof task.status).toBe("string");
+                       expect(typeof task.due_date).toBe("string");
+                       
+                    })
+                })
+            })
+            test("status should only be one of the following: TODO, IN PROGRESS, or COMPLETED", () => {
+                return request(app)
+                .get("/api/tasks")
+                .then(({ body: { tasks } }) => {
+                    tasks.forEach((task) => {
+                       expect(task.status).toMatch(/TODO|IN PROGRESS|COMPLETED/)
+                    })
+                })
+            })
+            test("should provide current data", () => {
+                return db.query(
+                    `INSERT INTO tasks (title, description, status, due_date) VALUES ('Example', 'example', 'TODO', '2025-12-31')`
+                )
+                .then(() => {
+                    return request(app)
+                    .get("/api/tasks")
+                    .then(({ body: { tasks } }) => {
+                       expect(tasks[10].title).toBe("Example");
+                    })
+                })
+            })
         })
     })
 })
