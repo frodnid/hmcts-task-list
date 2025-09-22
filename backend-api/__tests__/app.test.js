@@ -150,5 +150,154 @@ describe("app", () => {
             })
 
         })
+        describe("PATCH", ()=> {
+            describe("200 - Should update db entry for task for the following properties:", ()=> {
+                test("title", ()=> {
+                return request(app)
+                .patch("/api/tasks/1")
+                .send({ title: "New Title" })
+                .expect(200)
+                .then(() => {
+                    return db.query("SELECT title FROM tasks WHERE task_id = 1;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].title).toBe("New Title");
+                })
+                })
+                test("description", ()=> {
+                return request(app)
+                .patch("/api/tasks/2")
+                .send({ description: "New Description" })
+                .expect(200)
+                .then(() => {
+                    return db.query("SELECT description FROM tasks WHERE task_id = 2;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].description).toBe("New Description");
+                })
+                })
+                test("status", ()=> {
+                return request(app)
+                .patch("/api/tasks/3")
+                .send({ status: "TODO" })
+                .expect(200)
+                .then(() => {
+                    return db.query("SELECT status FROM tasks WHERE task_id = 3;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].status).toBe("TODO");
+                })
+                })
+                test("due date", ()=> {
+                return request(app)
+                .patch("/api/tasks/4")
+                .send({ due_date: "2026-12-12" })
+                .expect(200)
+                .then(() => {
+                    return db.query("SELECT due_date FROM tasks WHERE task_id = 4;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].due_date).toEqual(new Date("2026-12-12"))
+                })
+                })
+            })
+            test("Should update entries correctly when passed multiple properties in any order", () => {
+                return request(app)
+                .patch("/api/tasks/1")
+                .send({ 
+                    status: "COMPLETED",
+                    title: "New Title",
+                    description: "New Description"
+                 })
+                .expect(200)
+                .then(() => {
+                    return db.query("SELECT * FROM tasks WHERE task_id = 1;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].title).toBe("New Title");
+                    expect(rows[0].description).toBe("New Description");
+                    expect(rows[0].status).toBe("COMPLETED");
+                })
+            })
+            test("Should respond with a JSON containing the updated task object", ()=> {
+                 return request(app)
+                .patch("/api/tasks/1")
+                .send({ 
+                    status: "COMPLETED",
+                    title: "New Title",
+                    description: "New Description"
+                 })
+                .then(({ body: { task }}) => {
+                    expect(typeof task).toBe("object");
+                    expect(task).toEqual({
+                        task_id: 1,
+                        title: "New Title",
+                        description: "New Description",
+                        status: "COMPLETED",
+                        due_date: expect.any(String)
+                    })
+                })
+            })
+            describe("400 - Bad Requests:", ()=> {
+                test("invalid property", ()=> {
+                     return request(app)
+                    .patch("/api/tasks/1")
+                    .send({ fish: "and chips" })
+                    .expect(400);
+                })
+                test("invalid data", ()=> {
+                     return request(app)
+                    .patch("/api/tasks/1")
+                    .send({ status: 0.001 })
+                    .expect(400);
+                })
+                test("should send an appropriate error message", ()=> {
+                     return request(app)
+                    .patch("/api/tasks/1")
+                    .send({ status: 0.001 })
+                    .then(({ body: { msg }}) => {
+                        expect(msg).toBe("Bad request.")
+                    });
+                })
+                
+            })
+        })
+        describe("DELETE", ()=> {
+            test("Should respond with status code 204", ()=> {
+                return request(app)
+                .delete("/api/tasks/2")
+                .expect(204);
+            })
+            test("Should remove a specific row from the database", ()=> {
+                return request(app)
+                .delete("/api/tasks/3")
+                .expect(204)
+                .then(()=> {
+                    return db.query("SELECT task_id FROM tasks;")
+                })
+                .then(({ rows }) => {
+                    expect(rows.length).toBe(9);
+                    expect(rows.includes(3)).toBe(false);
+                })
+            })
+            test("400 - id not found", ()=> {
+                return request(app)
+                .delete("/api/tasks/9999")
+                .expect(400)
+                .then(( { body: { msg }}) => {
+                    expect(msg).toBe("Bad request.")
+                })
+            })
+
+            test("400 - invalid id", ()=> {
+                return request(app)
+                .delete("/api/tasks/jgkhdlgbd")
+                .expect(400)
+                .then(( { body: { msg }}) => {
+                    expect(msg).toBe("Bad request.")
+                })
+            })
+
+        })
     })
 })

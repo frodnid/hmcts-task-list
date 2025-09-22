@@ -11,7 +11,7 @@ exports.seed = function() {
                     title VARCHAR NOT NULL,
                     description VARCHAR DEFAULT NULL,
                     status VARCHAR CHECK (status = 'TODO' OR status = 'COMPLETED' OR status = 'IN PROGRESS'),
-                    due_date DATE NOT NULL 
+                    due_date DATE NOT NULL
                     ); `)
         }).then(()=> {
             return db.query(format("INSERT INTO tasks(title, description, status, due_date) VALUES %L",

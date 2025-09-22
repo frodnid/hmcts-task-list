@@ -1,0 +1,20 @@
+const format = require("pg-format")
+
+exports.createParameterizedUpdateQuery = function(taskID, data) {
+    const keys = Object.keys(data);
+    let str = "UPDATE tasks SET";
+    let arr = [];
+    keys.forEach((key, i) => {
+        const value = data[key];
+        arr.push(key, value);
+        str += " %I = %L";
+        if (i < keys.length - 1) {
+            str += ", ";
+        }
+    });
+
+    str += " WHERE task_id = %L RETURNING *;";
+    arr.push(taskID);
+    //console.log(format(str, ...arr))
+    return format(str, ...arr);
+}

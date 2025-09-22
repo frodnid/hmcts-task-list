@@ -1,6 +1,6 @@
 const express = require("express");
-const { getTasks, getTask } = require("./controllers/tasks");
-const { handlePathNotFound, handleMethodNotAllowed } = require("./controllers/errors");
+const { getTasks, getTask, patchTask, deleteTask } = require("./controllers/tasks");
+const { handlePathNotFound, handleMethodNotAllowed, handleBadRequest, handleCustomBadRequest } = require("./controllers/errors");
 
 const app = express();
 
@@ -11,7 +11,13 @@ app.route("/api/tasks")
     .all(handleMethodNotAllowed);
 
 app.route("/api/tasks/:id")
-    .get(getTask);
+    .get(getTask)
+    .patch(patchTask)
+    .delete(deleteTask);
+
+app.use(handleBadRequest);
+
+app.use(handleCustomBadRequest)
 
 app.use(handlePathNotFound);
 
