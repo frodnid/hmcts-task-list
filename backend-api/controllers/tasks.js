@@ -1,4 +1,4 @@
-const { fetchTasks, fetchTask, updateTask, removeTask } = require("../model")
+const { fetchTasks, insertTask, fetchTask, updateTask, removeTask } = require("../model")
 
 exports.getTasks = function(req, res, next) {
     fetchTasks()
@@ -7,6 +7,14 @@ exports.getTasks = function(req, res, next) {
         })
         .catch((err) => {
             next(err);
+        })
+}
+
+exports.postTask = function(req, res, next) {
+    const payload = req.body;
+    insertTask(payload)
+        .then((task)=> {
+            res.status(201).send({ task });
         })
 }
 

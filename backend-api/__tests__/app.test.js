@@ -91,8 +91,88 @@ describe("app", () => {
                 })
             })
         })
+         describe("POST", ()=> {
+            test("201 - Should create entry when passed task object", () => {
+                return request(app)
+                .post("/api/tasks")
+                .send({ 
+                    status: "COMPLETED",
+                    title: "New Title",
+                    description: "New Description",
+                    due_date: "2026-01-01"
+                 })
+                .expect(201)
+                .then(() => {
+                    return db.query("SELECT * FROM tasks WHERE task_id = 11;");
+                })
+                .then(({ rows }) => {
+                    expect(rows[0].title).toBe("New Title");
+                    expect(rows[0].description).toBe("New Description");
+                    expect(rows[0].status).toBe("COMPLETED");
+                    expect(rows[0].due_date).toEqual(new Date("2026-01-01"));
+                })
+            })
+            test("Should respond with a JSON containing the created task object", ()=> {
+                 return request(app)
+                .post("/api/tasks")
+                .send({ 
+                    status: "COMPLETED",
+                    title: "New Title",
+                    description: "New Description",
+                    due_date: "2026-01-01"
+                 })
+                .then(({ body: { task }}) => {
+                    expect(typeof task).toBe("object");
+                    expect(task).toEqual({
+                        task_id: 11,
+                        title: "New Title",
+                        description: "New Description",
+                        status: "COMPLETED",
+                        due_date: "2026-01-01T00:00:00.000Z"
+                    })
+                })
+            })
+            describe.skip("400 - Bad Requests:", ()=> {
+                test("invalid property", ()=> {
+                     return request(app)
+                    .post("/api/tasks")
+                    .send({ 
+                    bacon: "COMPLETED",
+                    beer: "New Title",
+                    cheese: "New Description",
+                    crackers: "2026-01-01"
+                 })
+                    .expect(400);
+                })
+                test("invalid data", ()=> {
+                     return request(app)
+                    .patpostch("/api/tasks")
+                    .send({ 
+                    status: 0.01,
+                    title: "New Title",
+                    description: "New Description",
+                    due_date: "2026-01-01"
+                 })
+                    .expect(400);
+                })
+                test("should send an appropriate error message", ()=> {
+                     return request(app)
+                    .post("/api/tasks")
+                    .send({ 
+                    status: 0.01,
+                    title: "New Title",
+                    description: "New Description",
+                    due_date: "2026-01-01"
+                 })
+                    .then(({ body: { msg }}) => {
+                        expect(msg).toBe("Bad request.")
+                    });
+                })
+                
+            })
+        })
         describe("405 INVALID METHOD", ()=> {
-            const invalidMethods = ["patch", "put", "post", "delete"];
+            const invalidMethods = ["patch", "put", "delete"];
             test("Should respond with status 405 for invalid methods", ()=> {
                 return Promise.all(invalidMethods.map((method) => {
                     return request(app)
@@ -150,6 +230,7 @@ describe("app", () => {
             })
 
         })
+       
         describe("PATCH", ()=> {
             describe("200 - Should update db entry for task for the following properties:", ()=> {
                 test("title", ()=> {

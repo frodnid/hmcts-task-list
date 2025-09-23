@@ -5,6 +5,11 @@ exports.fetchTasks = function() {
     return db.query("SELECT * FROM TASKS").then(({ rows }) => rows)
 }
 
+exports.insertTask = function(data) {
+    return db.query("INSERT INTO tasks (title, description, status, due_date) VALUES ($1, $2, $3, $4) RETURNING *;", [data.title, data.description, data.status, data.due_date])
+        .then(({ rows }) => rows[0]);
+}
+
 exports.fetchTask = function(task_id) {
     return db.query("SELECT * FROM TASKS WHERE task_id = $1;", [task_id]).then(({ rows }) => rows[0]);
 }
