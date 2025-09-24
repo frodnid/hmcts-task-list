@@ -1,4 +1,4 @@
-const { createParameterizedUpdateQuery } = require("../utils");
+const { createParameterizedUpdateQuery } = require("./utils");
 const { db } = require("./db/connection");
 
 exports.fetchTasks = function () {
