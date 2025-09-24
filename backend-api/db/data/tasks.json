@@ -1,62 +1,62 @@
 [
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    } , 
-    {
-        "title": "Write Unit Tests",
-        "description": "set out preliminary testing to expand with TDD",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    } , 
-    {
-        "title": "Eat Breakfast",
-        "description": "null",
-        "status": "COMPLETED",
-        "due_date": "2025-09-16"
-    }, 
-    {
-        "title": "Eat Lunch",
-        "description": "null",
-        "status": "COMPLETED",
-        "due_date": "2025-09-16"
-    }, 
-    {
-        "title": "Eat Dinner",
-        "description": "null",
-        "status": "TODO",
-        "due_date": "2025-09-16"
-    }, 
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    }, 
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    }, 
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    }, 
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    }, 
-    {
-        "title": "Create Database",
-        "description": "set up a postgres database and connection with nodejs",
-        "status": "IN PROGRESS",
-        "due_date": "2025-09-20"
-    }
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Write Unit Tests",
+    "description": "set out preliminary testing to expand with TDD",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Eat Breakfast",
+    "description": "null",
+    "status": "COMPLETED",
+    "due_date": "2025-09-16"
+  },
+  {
+    "title": "Eat Lunch",
+    "description": "null",
+    "status": "COMPLETED",
+    "due_date": "2025-09-16"
+  },
+  {
+    "title": "Eat Dinner",
+    "description": "null",
+    "status": "TODO",
+    "due_date": "2025-09-16"
+  },
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  },
+  {
+    "title": "Create Database",
+    "description": "set up a postgres database and connection with nodejs",
+    "status": "IN PROGRESS",
+    "due_date": "2025-09-20"
+  }
 ]
