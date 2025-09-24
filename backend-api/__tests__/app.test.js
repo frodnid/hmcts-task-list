@@ -228,7 +228,14 @@ describe("app", () => {
                     })
                 })
             })
-
+            test("400 - invalid id", ()=> {
+                return request(app)
+                .get("/api/tasks/whoops")
+                .expect(400)
+                .then(( { body: { msg }}) => {
+                    expect(msg).toBe("Bad request.");
+                });
+            });
         })
        
         describe("PATCH", ()=> {
