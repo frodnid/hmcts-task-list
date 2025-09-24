@@ -2,10 +2,14 @@
 A simple task listing app submission for the dts developer challenge.
 
 Installation:
-
+cd into `backend-api`
 DB uses PostgreSQL. Once installed initialise DB with `npm run setup-db`
 Seed the DB with `npm run seed`
 
-Running:
-
+Running backend server:
+cd into `backend-api`
 `npm start` - server will listen on port 9090.
+
+Running front-end app:
+cd into `frontend-app`
+`npm run dev` - vite will serve on port 5173.
