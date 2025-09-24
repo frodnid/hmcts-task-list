@@ -17,13 +17,16 @@ export default function Tasklist() {
     <ul>
       {currentTasks.map((task) => {
         return (
-          <li>
-            <div>{task.title}</div>
-            <div>{task.description}</div>
-            <div>{task.status}</div>
-            <div>{task.due_date}</div>
+          <div className="card">
+            <button onClick={()=> {
+                return axios.delete(`http://localhost:9090/api/tasks/${task.task_id}`)
+            }}>X</button>
+            <div className="task-title">{task.title}</div>
+            <div className="task-description">{task.description}</div>
+            <div className="task-status">{task.status}</div>
+            <div className="task-due-date">{task.due_date}</div>
             <br />
-          </li>
+          </div>
         );
       })}
     </ul>
