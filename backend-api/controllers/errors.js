@@ -7,7 +7,7 @@ exports.handleMethodNotAllowed = function(req, res, next) {
 }
 
 exports.handleBadRequest = function (err, req, res, next) {
-    const badRequestErrorCodes = ["42703", "23514", "22P02"]
+    const badRequestErrorCodes = ["42703", "23514", "22P02", "23502"]
     if (badRequestErrorCodes.includes(err.code)) {
         res.status(400).send({ msg: "Bad request." });
     }

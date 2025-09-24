@@ -132,8 +132,8 @@ describe("app", () => {
                     })
                 })
             })
-            describe.skip("400 - Bad Requests:", ()=> {
-                test("invalid property", ()=> {
+            describe("400 - Bad Requests:", ()=> {
+                test("invalid properties", ()=> {
                      return request(app)
                     .post("/api/tasks")
                     .send({ 
@@ -146,7 +146,7 @@ describe("app", () => {
                 })
                 test("invalid data", ()=> {
                      return request(app)
-                    .patpostch("/api/tasks")
+                    .post("/api/tasks")
                     .send({ 
                     status: 0.01,
                     title: "New Title",
@@ -379,6 +379,26 @@ describe("app", () => {
                 })
             })
 
+        })
+        describe("405 INVALID METHOD", ()=> {
+            const invalidMethods = ["post", "put"];
+            test("Should respond with status 405 for invalid methods", ()=> {
+                return Promise.all(invalidMethods.map((method) => {
+                    return request(app)
+                    [method]("/api/tasks/2")
+                    .expect(405);
+                }))
+            })
+            test("Should respond with an appropriate error message JSON", ()=> {
+                return Promise.all(invalidMethods.map((method) => {
+                    return request(app)
+                    [method]("/api/tasks/2")
+                    .expect("Content-type", /json/)
+                    .then(({ body: { msg } }) => {
+                        expect(msg).toBe("Method not allowed.")
+                    })
+                }))
+            })
         })
     })
 })

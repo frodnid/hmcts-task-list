@@ -14,7 +14,8 @@ app.route("/api/tasks")
 app.route("/api/tasks/:id")
     .get(getTask)
     .patch(patchTask)
-    .delete(deleteTask);
+    .delete(deleteTask)
+    .all(handleMethodNotAllowed);
 
 app.use(handleBadRequest);
 

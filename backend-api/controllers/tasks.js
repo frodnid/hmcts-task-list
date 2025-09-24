@@ -16,6 +16,9 @@ exports.postTask = function(req, res, next) {
         .then((task)=> {
             res.status(201).send({ task });
         })
+        .catch((err) =>{
+            next(err);
+        })
 }
 
 
@@ -24,6 +27,9 @@ exports.getTask = function(req, res, next) {
     fetchTask(taskID)
         .then((task) => {
             res.status(200).send({ task });
+        })
+        .catch((err) => {
+            next(err);
         })
 }
 
@@ -46,7 +52,6 @@ exports.deleteTask = function(req, res, next) {
             res.status(204).send();        
         })
         .catch((err)=> {
-            console.log(err)
             next(err);
         })
 }
