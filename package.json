@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "setup-db": "psql -f ./backend-api/db/setup.sql",
-    "seed": "node ./backend-api/db/seed-run"
+    "seed": "node ./backend-api/db/seed-run",
+    "start" : "node ./backend-api/listen.js"
   },
   "repository": {
     "type": "git",
