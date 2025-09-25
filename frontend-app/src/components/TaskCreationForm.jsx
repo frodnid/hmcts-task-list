@@ -1,4 +1,4 @@
-import axios from "axios";
+import * as api from "../../api";
 
 export default function TaskCreationForm({ setTasksChangedFlag }) {
   return (
@@ -9,8 +9,8 @@ export default function TaskCreationForm({ setTasksChangedFlag }) {
         onSubmit={(e) => {
           e.preventDefault();
           const { title, description, status, dueDate } = e.target;
-          return axios
-            .post("http://localhost:9090/api/tasks", {
+          api
+            .postTask({
               title: title.value,
               description: description.value,
               status: status.value,
@@ -18,9 +18,6 @@ export default function TaskCreationForm({ setTasksChangedFlag }) {
             })
             .then(() => {
               setTasksChangedFlag(true);
-            })
-            .catch((err) => {
-              console.log(err);
             });
         }}
       >

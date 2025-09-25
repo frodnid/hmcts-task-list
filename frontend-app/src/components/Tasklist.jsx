@@ -1,11 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
+import * as api from "../../api";
 
 export default function Tasklist({ tasksChangedFlag, setTasksChangedFlag }) {
   const [currentTasks, setTasks] = useState(null);
   useEffect(() => {
-    axios.get("http://localhost:9090/api/tasks").then(({ data: { tasks } }) => {
+    api.getTasks().then(({ data: { tasks } }) => {
       setTasks(tasks);
       if (tasksChangedFlag) {
         setTasksChangedFlag(false);
@@ -20,7 +20,13 @@ export default function Tasklist({ tasksChangedFlag, setTasksChangedFlag }) {
   return (
     <ul>
       {currentTasks.map((task) => {
-        return <TaskCard task={task} setTasksChangedFlag={setTasksChangedFlag} key={task.task_id}/>
+        return (
+          <TaskCard
+            task={task}
+            setTasksChangedFlag={setTasksChangedFlag}
+            key={task.task_id}
+          />
+        );
       })}
     </ul>
   );
