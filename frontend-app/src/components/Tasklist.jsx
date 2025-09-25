@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import TaskCard from "./TaskCard";
 
 export default function Tasklist({ tasksChangedFlag, setTasksChangedFlag }) {
   const [currentTasks, setTasks] = useState(null);
@@ -19,29 +20,7 @@ export default function Tasklist({ tasksChangedFlag, setTasksChangedFlag }) {
   return (
     <ul>
       {currentTasks.map((task) => {
-        return (
-          <div className="card" key={task.task_id}>
-            <button
-              onClick={() => {
-                return axios
-                  .delete(`http://localhost:9090/api/tasks/${task.task_id}`)
-                  .then(() => {
-                    setTasksChangedFlag(true);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              }}
-            >
-              X
-            </button>
-            <div className="task-title">{task.title}</div>
-            <div className="task-description">{task.description}</div>
-            <div className="task-status">{task.status}</div>
-            <div className="task-due-date">{task.due_date}</div>
-            <br />
-          </div>
-        );
+        return <TaskCard task={task} setTasksChangedFlag={setTasksChangedFlag} key={task.task_id}/>
       })}
     </ul>
   );
