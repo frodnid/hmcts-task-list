@@ -13,7 +13,7 @@ exports.createParameterizedUpdateQuery = function (taskID, data) {
     }
   });
 
-  str += " WHERE task_id = %L RETURNING *;";
+  str += " WHERE task_id = %L RETURNING task_id, title, description, status, due_date;";
   arr.push(taskID);
   return format(str, ...arr);
 };

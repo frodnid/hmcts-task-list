@@ -75,7 +75,7 @@ describe("app", () => {
             });
           });
       });
-      test("should provide current data", () => {
+      test("task array should be ordered by creation date", () => {
         return db
           .query(
             `INSERT INTO tasks (title, description, status, due_date) VALUES ('Example', 'example', 'TODO', '2025-12-31')`
@@ -84,7 +84,7 @@ describe("app", () => {
             return request(app)
               .get("/api/tasks")
               .then(({ body: { tasks } }) => {
-                expect(tasks[10].title).toBe("Example");
+                expect(tasks[0].title).toBe("Example");
               });
           });
       });
@@ -101,7 +101,7 @@ describe("app", () => {
           })
           .expect(201)
           .then(() => {
-            return db.query("SELECT * FROM tasks WHERE task_id = 11;");
+            return db.query("SELECT task_id, title, description, status, due_date FROM tasks WHERE task_id = 11;");
           })
           .then(({ rows }) => {
             expect(rows[0].title).toBe("New Title");

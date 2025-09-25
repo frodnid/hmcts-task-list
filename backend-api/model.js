@@ -2,13 +2,17 @@ const { createParameterizedUpdateQuery } = require("./utils");
 const { db } = require("./db/connection");
 
 exports.fetchTasks = function () {
-  return db.query("SELECT * FROM TASKS").then(({ rows }) => rows);
+  return db
+    .query(
+      "SELECT task_id, title, description, status, due_date FROM TASKS ORDER BY created_at DESC;"
+    )
+    .then(({ rows }) => rows);
 };
 
 exports.insertTask = function (data) {
   return db
     .query(
-      "INSERT INTO tasks (title, description, status, due_date) VALUES ($1, $2, $3, $4) RETURNING *;",
+      "INSERT INTO tasks (title, description, status, due_date) VALUES ($1, $2, $3, $4) RETURNING task_id, title, description, status, due_date;",
       [data.title, data.description, data.status, data.due_date]
     )
     .then(({ rows }) => rows[0]);
@@ -16,7 +20,7 @@ exports.insertTask = function (data) {
 
 exports.fetchTask = function (task_id) {
   return db
-    .query("SELECT * FROM TASKS WHERE task_id = $1;", [task_id])
+    .query("SELECT task_id, title, description, status, due_date FROM TASKS WHERE task_id = $1;", [task_id])
     .then(({ rows }) => rows[0]);
 };
 
