@@ -1,0 +1,88 @@
+<html lang="en">
+  <style></style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>HMCTS To Do List API</h1>
+    <ul>
+      <li>
+        <h3>/api/tasks</h3>
+        <ul>
+          <li>
+            <h4>GET</h4>
+            <p>Response: an array of all task objects:</p>
+            <pre><code>{
+  "tasks": [
+    {
+      "task_id": integer,
+      "title": string,
+      "description": optional string,
+      "status": string ("TODO" || "IN PROGRESS" || "COMPLETED")
+      "due_date": date
+    },
+    ...
+  ]
+}</code></pre>
+          </li>
+          <li>
+            <h4>POST</h4>
+            <p>Request: accepts a task object as payload:</p>
+            <pre><code>{
+    "title": string,
+    "description": optional string,
+    "status": string ("TODO" || "IN PROGRESS" || "COMPLETED")
+    "due_date": date (YYYY-MM-DD)
+
+}
+</code></pre>
+            <p>Response: responds with the newly created entry.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <li>
+      <h3>/api/tasks/:id</h3>
+      <ul>
+        <li>
+          <h4>GET</h4>
+          <p>Response: returns a task object at a parametrics task_id:</p>
+          <pre><code>{
+  "task":
+    {
+      "task_id": integer,
+      "title": string,
+      "description": optional string,
+      "status": string ("TODO" || "IN PROGRESS" || "COMPLETED")
+      "due_date": date
+    }
+}</code></pre>
+        </li>
+        <li>
+          <h4>PATCH</h4>
+          <p>
+            Request: accepts an object as payload as with any of the following
+            properties:
+          </p>
+          <pre><code>{
+    "title": string,
+    "description": string,
+    "status": string ("TODO" || "IN PROGRESS" || "COMPLETED")
+    "due_date": date (YYYY-MM-DD)
+
+}
+</code></pre>
+          <p>Response: responds with the newly updated db entry.</p>
+        </li>
+        <li>
+          <h4>DELETE</h4>
+          <p>removes a specified property from the database</p>
+
+          <p>Response: none</p>
+        </li>
+      </ul>
+    </li>
+  </body>
+</html>
