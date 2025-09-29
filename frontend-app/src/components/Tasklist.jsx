@@ -18,7 +18,7 @@ export default function Tasklist({ tasksChangedFlag, setTasksChangedFlag }) {
   }
 
   return (
-    <ul>
+    <ul className="task-list">
       {currentTasks.map((task) => {
         return (
           <TaskCard

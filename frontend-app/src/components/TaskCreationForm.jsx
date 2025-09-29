@@ -2,7 +2,7 @@ import * as api from "../../api";
 
 export default function TaskCreationForm({ setTasksChangedFlag }) {
   return (
-    <>
+    <div className="task-creation-form">
       <h2>Create New Task:</h2>
 
       <form
@@ -24,8 +24,9 @@ export default function TaskCreationForm({ setTasksChangedFlag }) {
         <label htmlFor="title">Title</label>
         <input id="title" type="text" required />
         <label htmlFor="description">Description</label>
-        <input id="description" type="text" />
+        <textarea id="description"  />
 
+        <label htmlFor="todo">TODO</label>
         <input
           type="radio"
           id="todo"
@@ -33,23 +34,20 @@ export default function TaskCreationForm({ setTasksChangedFlag }) {
           value="TODO"
           defaultChecked
         />
-        <label htmlFor="todo">TODO</label>
-        <br />
+        <label htmlFor="in-progress">IN PROGRESS</label>
         <input
           type="radio"
           id="in-progress"
           name="status"
           value="IN PROGRESS"
         />
-        <label htmlFor="in-progress">IN PROGRESS</label>
-        <br />
-        <input type="radio" id="completed" name="status" value="COMPLETED" />
         <label htmlFor="completed">COMPLETED</label>
-
+        <input type="radio" id="completed" name="status" value="COMPLETED" />
+        <br />
         <input type="date" id="dueDate" required />
-
+        <br />
         <input type="submit" />
       </form>
-    </>
+    </div>
   );
 }

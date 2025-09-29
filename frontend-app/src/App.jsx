@@ -11,7 +11,7 @@ function App() {
       <div>
         <img src={hmctsLogo} />
       </div>
-      <h1>Task List:</h1>
+      <h1>To Do List:</h1>
       <TaskCreationForm
         setTasksChangedFlag={setTasksChangedFlag}
       ></TaskCreationForm>
