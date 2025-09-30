@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 h1 {
@@ -53,6 +52,15 @@ justify-self: center;
 padding: 1rem;
 }
 
+.task-title {
+  font-size: 2em;
+  padding: 1em 0 1em 0;
+}
+.task-description {
+  font-style: italic;
+  padding-bottom: 0.5em;
+}
+
 @keyframes slide-in {
   from {
     translate: 0 80vh;
@@ -66,5 +74,9 @@ padding: 1rem;
     opacity: 100%;
   }
 }
+
+
+
+
 
 

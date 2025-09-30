@@ -30,9 +30,9 @@ export default function TaskCard({ task, setTasksChangedFlag }) {
         />
       )}
       <div className="task-title">{task.title}</div>
-      <div className="task-description">{task.description}</div>
-      <div className="task-status">{task.status}</div>
-      <div className="task-due-date">{task.due_date}</div>
+      <div className="task-description">{task.description === "null" ? "" : task.description}</div>
+      <div className="task-status">Status: {task.status}</div>
+      <div className="task-due-date">Due on: {task.due_date.slice(0, 10)}</div>
       <br />
     </div>
   );
